@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image & Logo Editor Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Sidebar -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-icon">✨</div>
+                <div>
+                    <h1>Image & Logo Editor Studio</h1>
+                    <p>Editor Presisi Manual, HD Sharpening & Metadata Stripper</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button id="reset-btn" class="btn btn-secondary">🔄 Reset</button>
+                <button id="download-btn" class="btn btn-primary">⚡ Download HD Output</button>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Control Panel (Left) -->
+            <aside class="control-panel">
+                <!-- Upload Section -->
+                <section class="panel-section">
+                    <h3 class="section-title">📁 File Input</h3>
+                    
+                    <div class="upload-box" id="main-upload-box">
+                        <input type="file" id="main-input" accept="image/*" class="file-input">
+                        <div class="upload-content">
+                            <span class="upload-icon">🖼️</span>
+                            <span class="upload-label" id="main-label">Upload Gambar Utama</span>
+                            <span class="upload-sub">Format PNG, JPG, WEBP</span>
+                        </div>
+                    </div>
+
+                    <div class="upload-box" id="logo-upload-box">
+                        <input type="file" id="logo-input" accept="image/*" class="file-input">
+                        <div class="upload-content">
+                            <span class="upload-icon">🎨</span>
+                            <span class="upload-label" id="logo-label">Upload Logo (PNG Transparan)</span>
+                            <span class="upload-sub">Format PNG dengan Alpha Channel</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Preset Positions -->
+                <section class="panel-section">
+                    <h3 class="section-title">📐 Format Aspect Ratio</h3>
+                    <div class="preset-grid">
+                        <button class="ratio-btn" data-ratio="9:16">
+                            <span>📱</span> 9:16 Story (941x1672)
+                        </button>
+                        <button class="ratio-btn active" data-ratio="4:5">
+                            <span>🖼️</span> 4:5 Vertikal (1080x1350)
+                        </button>
+                    </div>
+                </section>
+
+                <section class="panel-section">
+                    <h3 class="section-title">🎯 Preset Posisi Logo</h3>
+                    <div class="preset-grid">
+                        <button class="preset-btn" data-preset="top-right-placeholder">
+                            <span>🏆</span> Golden Circle (9:16)
+                        </button>
+                        <button class="preset-btn active" data-preset="top-right-45">
+                            <span>✨</span> Top Right (4:5)
+                        </button>
+                        <button class="preset-btn" data-preset="top-right">
+                            <span>↗️</span> Top Right
+                        </button>
+                        <button class="preset-btn" data-preset="top-left">
+                            <span>↖️</span> Top Left
+                        </button>
+                        <button class="preset-btn" data-preset="bottom-right">
+                            <span>↘️</span> Bottom Right
+                        </button>
+                        <button class="preset-btn" data-preset="bottom-left">
+                            <span>↙️</span> Bottom Left
+                        </button>
+                        <button class="preset-btn" data-preset="center">
+                            <span>⏺️</span> Center
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Manual Adjustments -->
+                <section class="panel-section">
+                    <h3 class="section-title">🎛️ Atur Posisi & Ukuran Manual</h3>
+                    
+                    <div class="control-group">
+                        <div class="control-header">
+                            <label for="size-slider">Ukuran Logo Scale</label>
+                            <span id="size-val" class="control-val">292 px</span>
+                        </div>
+                        <input type="range" id="size-slider" min="50" max="600" value="292" class="slider">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-header">
+                            <label for="pos-x-slider">Posisi Horisontal (X)</label>
+                            <span id="pos-x-val" class="control-val">830 px</span>
+                        </div>
+                        <input type="range" id="pos-x-slider" min="0" max="1000" value="830" class="slider">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-header">
+                            <label for="pos-y-slider">Posisi Vertikal (Y)</label>
+                            <span id="pos-y-val" class="control-val">126 px</span>
+                        </div>
+                        <input type="range" id="pos-y-slider" min="0" max="1000" value="126" class="slider">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-header">
+                            <label for="opacity-slider">Transparansi Opacity</label>
+                            <span id="opacity-val" class="control-val">100%</span>
+                        </div>
+                        <input type="range" id="opacity-slider" min="10" max="100" value="100" class="slider">
+                    </div>
+                </section>
+
+                <!-- Filters & Metadata -->
+                <section class="panel-section">
+                    <h3 class="section-title">✨ Filter & Kualitas Output</h3>
+                    
+                    <div class="toggle-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="hd-toggle" checked>
+                            <span class="toggle-custom"></span>
+                            <span>⚡ HD Sharpening & Detail Boost</span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="vibrant-toggle" checked>
+                            <span class="toggle-custom"></span>
+                            <span>🎨 Photoshop Vibrant Color Boost</span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-group">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="metadata-toggle" checked>
+                            <span class="toggle-custom"></span>
+                            <span>🛡️ Strip Total Metadata AI & EXIF</span>
+                        </label>
+                    </div>
+
+                    <div class="control-group" style="margin-top: 15px;">
+                        <label for="format-select">Format File Download</label>
+                        <select id="format-select" class="select-input">
+                            <option value="image/png" selected>PNG (Transparansi Murni)</option>
+                            <option value="image/jpeg">JPEG (Kualitas HD 95%)</option>
+                        </select>
+                    </div>
+                </section>
+            </aside>
+
+            <!-- Preview Canvas (Right) -->
+            <section class="preview-area">
+                <div class="canvas-wrapper" id="canvas-wrapper">
+                    <canvas id="editor-canvas"></canvas>
+                    <div class="canvas-overlay-guide">
+                        💡 Anda bisa menggeser (drag) logo secara langsung di atas canvas!
+                    </div>
+                </div>
+                <div class="image-info-bar">
+                    <span id="info-dim">Dimensi: 941 x 1672 px</span>
+                    <span id="info-logo-pos">Logo Center: (837, 116)</span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
